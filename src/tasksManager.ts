@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import { File, Task } from "./tasks";
 import { TasksRepository } from './tasksRepository';
-import { TasksProvider } from './tasksTreeViewProvider';
+import { TasksProvider, TasksProviderCompleted } from './tasksTreeViewProvider';
 import { messages } from './messages';
 
 export class TasksManager {
@@ -10,19 +10,22 @@ export class TasksManager {
 
     constructor(
         private tasksRepository: TasksRepository,
-        private tasksProvider: TasksProvider) {
+        private tasksProvider: TasksProvider,
+        private tasksProviderCompleted: TasksProviderCompleted) {
     }
 
     reloadTasks() {
         this._activeTask = undefined;
         this.tasksRepository.read();
         this.tasksProvider._onDidChangeTreeData.fire();
+        this.tasksProviderCompleted._onDidChangeTreeData.fire();
     }
 
     createTask(taskName: string) {
         const task = new Task(taskName);
         this.tasksRepository.addTask(task);
         this.tasksProvider._onDidChangeTreeData.fire();
+        this.tasksProviderCompleted._onDidChangeTreeData.fire();
         this.tasksRepository.write();
     }
 
@@ -32,6 +35,7 @@ export class TasksManager {
         }
         this.tasksRepository.deleteTask(task);
         this.tasksProvider._onDidChangeTreeData.fire();
+        this.tasksProviderCompleted._onDidChangeTreeData.fire();
         this.tasksRepository.write();
     }
 
@@ -47,6 +51,7 @@ export class TasksManager {
         task.name = newName;
         this.tasksRepository.write();
         this.tasksProvider._onDidChangeTreeData.fire();
+        this.tasksProviderCompleted._onDidChangeTreeData.fire();
     }
 
     addFileToActiveTask(fileUri: vscode.Uri) {
@@ -69,6 +74,7 @@ export class TasksManager {
             const file = new File(task, fileUri);
             task.addFile(file);
             this.tasksProvider._onDidChangeTreeData.fire();
+            this.tasksProviderCompleted._onDidChangeTreeData.fire();
             this.tasksRepository.write();
         }
     }
@@ -77,6 +83,7 @@ export class TasksManager {
         const task = file.task;
         task.removeFile(file);
         this.tasksProvider._onDidChangeTreeData.fire();
+        this.tasksProviderCompleted._onDidChangeTreeData.fire();
         this.tasksRepository.write();
     }
 
@@ -89,6 +96,7 @@ export class TasksManager {
         task.active = true;
 
         this.tasksProvider._onDidChangeTreeData.fire();
+        this.tasksProviderCompleted._onDidChangeTreeData.fire();
     }
 
     deactivateTask(task: Task) {
@@ -96,18 +104,21 @@ export class TasksManager {
             this._activeTask.active = false;
             this._activeTask = undefined;
             this.tasksProvider._onDidChangeTreeData.fire();
+            this.tasksProviderCompleted._onDidChangeTreeData.fire();
         }
     }
 
     markTaskIncomplete(task: Task) {
         task.complete = false;
         this.tasksProvider._onDidChangeTreeData.fire();
+        this.tasksProviderCompleted._onDidChangeTreeData.fire();
         this.tasksRepository.write();
     }
 
     markTaskComplete(task: Task) {
         task.complete = true;
         this.tasksProvider._onDidChangeTreeData.fire();
+        this.tasksProviderCompleted._onDidChangeTreeData.fire();
         this.tasksRepository.write();
     }
 

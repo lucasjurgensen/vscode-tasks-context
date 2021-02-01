@@ -122,24 +122,6 @@
                 "command": "tasks-context.sortTasksByCreationDate",
                 "title": "%command.sortTasksByCreationDate.title%",
                 "enablement": "workspaceFolderCount == 1"
-            },
-            {
-                "command": "tasks-context.hideCompletedTasks",
-                "title": "%command.hideCompletedTasks.title%",
-                "icon": {
-                    "light": "media/light/hide-completed-tasks.svg",
-                    "dark": "media/dark/hide-completed-tasks.svg"
-                },
-                "enablement": "workspaceFolderCount == 1"
-            },
-            {
-                "command": "tasks-context.showCompletedTasks",
-                "title": "%command.showCompletedTasks.title%",
-                "icon": {
-                    "light": "media/light/show-completed-tasks.svg",
-                    "dark": "media/dark/show-completed-tasks.svg"
-                },
-                "enablement": "workspaceFolderCount == 1"
             }
         ],
         "views": {
@@ -176,16 +158,6 @@
                 {
                     "command": "tasks-context.newTask",
                     "when": "view == tasks-context",
-                    "group": "navigation"
-                },
-                {
-                    "command": "tasks-context.showCompletedTasks",
-                    "when": "view == tasks-context && config.tasks-context.hideCompletedTasks",
-                    "group": "navigation"
-                },
-                {
-                    "command": "tasks-context.hideCompletedTasks",
-                    "when": "view == tasks-context && !config.tasks-context.hideCompletedTasks",
                     "group": "navigation"
                 },
                 {
@@ -296,12 +268,6 @@
                     "type": "boolean",
                     "default": false,
                     "description": "%property.showAddFileToActiveTaskInExplorerContext.description%",
-                    "scope": "window"
-                },
-                "tasks-context.hideCompletedTasks": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "%property.hideCompletedTasks.description%",
                     "scope": "window"
                 }
             }

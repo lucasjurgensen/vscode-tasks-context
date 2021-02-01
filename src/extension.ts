@@ -6,7 +6,7 @@ import { NoTasksProvider } from './noTasksTreeViewProvider';
 import { File, Task } from './tasks';
 import { TasksManager } from './tasksManager';
 import { TasksRepository } from './tasksRepository';
-import { TasksProvider } from './tasksTreeViewProvider';
+import { TasksProvider, TasksProviderCompleted } from './tasksTreeViewProvider';
 
 export function activate(context: vscode.ExtensionContext) {
     if (!vscode.workspace.workspaceFolders || vscode.workspace.workspaceFolders.length > 1) {
@@ -25,7 +25,10 @@ function initWorkspace(context: vscode.ExtensionContext, workspaceUri: vscode.Ur
     const tasksProvider = new TasksProvider(tasksRepository);
     const treeProvider = vscode.window.registerTreeDataProvider('tasks-context', tasksProvider);
 
-    const tasksManager = new TasksManager(tasksRepository, tasksProvider);
+    const tasksProviderCompleted = new TasksProviderCompleted(tasksRepository);
+    const treeProviderCompleted = vscode.window.registerTreeDataProvider('tasks-context-completed', tasksProviderCompleted);
+
+    const tasksManager = new TasksManager(tasksRepository, tasksProvider, tasksProviderCompleted);
 
     vscode.window.onDidChangeTextEditorSelection(e => {
         const autoActive = vscode.workspace.getConfiguration('tasks-context', null).get<string>('autoAddFileToActiveTask');
@@ -44,6 +47,10 @@ function initWorkspace(context: vscode.ExtensionContext, workspaceUri: vscode.Ur
     });
 
     const commandReloadTasks = vscode.commands.registerCommand('tasks-context.reloadTasks', () => {
+        tasksManager.reloadTasks();
+    });
+    
+    const commandReloadTasksCompleted = vscode.commands.registerCommand('tasks-context-completed.reloadTasks', () => {
         tasksManager.reloadTasks();
     });
 
@@ -112,6 +119,14 @@ function initWorkspace(context: vscode.ExtensionContext, workspaceUri: vscode.Ur
         tasksManager.markTaskIncomplete(task);
     });
 
+    // const markTaskCompletedComplete = vscode.commands.registerCommand('tasks-context-completed.markTaskComplete', (task: Task) => {
+    //     tasksManager.markTaskComplete(task);
+    // });
+
+    // const markTaskCompletedIncomplete = vscode.commands.registerCommand('tasks-context-completed.markTaskIncomplete', (task: Task) => {
+    //     tasksManager.markTaskIncomplete(task);
+    // });
+
     const sortTasksByName = vscode.commands.registerCommand('tasks-context.sortTasksByName', () => {
         tasksProvider.sortBy = 'name';
     });
@@ -120,18 +135,10 @@ function initWorkspace(context: vscode.ExtensionContext, workspaceUri: vscode.Ur
         tasksProvider.sortBy = 'creationDate';
     });
 
-    const showCompletedTasks = vscode.commands.registerCommand('tasks-context.showCompletedTasks', () => {
-        vscode.workspace.getConfiguration().update('tasks-context.hideCompletedTasks', false, true);
-        tasksProvider._onDidChangeTreeData.fire();
-    });
-
-    const hideCompletedTasks = vscode.commands.registerCommand('tasks-context.hideCompletedTasks', () => {
-        vscode.workspace.getConfiguration().update('tasks-context.hideCompletedTasks', true, true);
-        tasksProvider._onDidChangeTreeData.fire();
-    });
-
     context.subscriptions.push(treeProvider);
+    context.subscriptions.push(treeProviderCompleted);
     context.subscriptions.push(commandReloadTasks);
+    context.subscriptions.push(commandReloadTasksCompleted);
     context.subscriptions.push(commandNewTask);
     context.subscriptions.push(commandOpenAllFiles);
     context.subscriptions.push(commandDeleteTask);
@@ -144,13 +151,14 @@ function initWorkspace(context: vscode.ExtensionContext, workspaceUri: vscode.Ur
     context.subscriptions.push(markTaskIncomplete);
     context.subscriptions.push(sortTasksByName);
     context.subscriptions.push(sortTasksByCreationDate);
-    context.subscriptions.push(showCompletedTasks);
-    context.subscriptions.push(hideCompletedTasks);
 }
 
 function initNoWorkspace(context: vscode.ExtensionContext) {
     const tasksProvider = new NoTasksProvider();
     const treeProvider = vscode.window.registerTreeDataProvider('tasks-context', tasksProvider);
+    const tasksProviderCompleted = new NoTasksProvider();
+    const treeProviderCompleted = vscode.window.registerTreeDataProvider('tasks-context-completed', tasksProviderCompleted);
 
     context.subscriptions.push(treeProvider);
+    context.subscriptions.push(treeProviderCompleted);
 }
