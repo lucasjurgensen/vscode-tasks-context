@@ -57,7 +57,11 @@ function initWorkspace(context: vscode.ExtensionContext, workspaceUri: vscode.Ur
     const commandNewTask = vscode.commands.registerCommand('tasks-context.newTask', () => {
         vscode.window.showInputBox({ placeHolder: messages.task_name }).then(taskName => {
             if (taskName) {
-                tasksManager.createTask(taskName);
+                try {
+                    tasksManager.createTask(taskName);
+                } catch (error) {
+                    vscode.window.showWarningMessage("Failed to create: A task with name '" + taskName + "' already exists.");
+                }
             }
         });
     });
