@@ -16,11 +16,20 @@
         "Other"
     ],
     "activationEvents": [
-        "onView:tasks-context"
+        "onView:tasks-context", "onView.tasks-context-completed"
     ],
     "main": "./out/extension",
     "contributes": {
         "commands": [
+            {
+                "command": "tasks-context-completed.reloadTasks",
+                "title": "%command.reloadTasks.title%",
+                "icon": {
+                    "light": "media/light/refresh.svg",
+                    "dark": "media/dark/refresh.svg"
+                },
+                "enablement": "workspaceFolderCount == 1"
+            },
             {
                 "command": "tasks-context.reloadTasks",
                 "title": "%command.reloadTasks.title%",
@@ -138,6 +147,10 @@
                 {
                     "id": "tasks-context",
                     "name": "%view.tasks.name%"
+                },
+                {
+                    "id": "tasks-context-completed",
+                    "name": "%view.tasks-completed.name%"
                 }
             ]
         },
@@ -150,6 +163,11 @@
                 }
             ],
             "view/title": [
+                {
+                    "command": "tasks-context-completed.reloadTasks",
+                    "when": "view == tasks-context-completed",
+                    "group": "navigation"
+                },
                 {
                     "command": "tasks-context.reloadTasks",
                     "when": "view == tasks-context",

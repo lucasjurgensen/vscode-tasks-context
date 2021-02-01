@@ -1,5 +1,6 @@
 {
     "view.tasks.name": "Tasks",
+    "view.tasks-completed.name": "Completed Tasks",
     "command.reloadTasks.title": "Reload tasks",
     "command.newTask.title": "New task",
     "command.openAllFiles.title": "Open all Files",
