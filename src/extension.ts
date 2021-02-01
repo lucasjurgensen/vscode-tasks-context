@@ -115,17 +115,9 @@ function initWorkspace(context: vscode.ExtensionContext, workspaceUri: vscode.Ur
         tasksManager.markTaskComplete(task);
     });
 
-    const markTaskIncomplete = vscode.commands.registerCommand('tasks-context.markTaskIncomplete', (task: Task) => {
+    const markTaskIncomplete = vscode.commands.registerCommand('tasks-context-completed.markTaskIncomplete', (task: Task) => {
         tasksManager.markTaskIncomplete(task);
     });
-
-    // const markTaskCompletedComplete = vscode.commands.registerCommand('tasks-context-completed.markTaskComplete', (task: Task) => {
-    //     tasksManager.markTaskComplete(task);
-    // });
-
-    // const markTaskCompletedIncomplete = vscode.commands.registerCommand('tasks-context-completed.markTaskIncomplete', (task: Task) => {
-    //     tasksManager.markTaskIncomplete(task);
-    // });
 
     const sortTasksByName = vscode.commands.registerCommand('tasks-context.sortTasksByName', () => {
         tasksProvider.sortBy = 'name';

@@ -22,15 +22,6 @@
     "contributes": {
         "commands": [
             {
-                "command": "tasks-context-completed.reloadTasks",
-                "title": "%command.reloadTasks.title%",
-                "icon": {
-                    "light": "media/light/refresh.svg",
-                    "dark": "media/dark/refresh.svg"
-                },
-                "enablement": "workspaceFolderCount == 1"
-            },
-            {
                 "command": "tasks-context.reloadTasks",
                 "title": "%command.reloadTasks.title%",
                 "icon": {
@@ -106,11 +97,19 @@
             {
                 "command": "tasks-context.markTaskComplete",
                 "title": "%command.markTaskComplete.title%",
+                "icon": {
+                    "light": "media/light/complete_check.svg",
+                    "dark": "media/dark/complete_check.svg"
+                },
                 "enablement": "workspaceFolderCount == 1"
             },
             {
-                "command": "tasks-context.markTaskIncomplete",
+                "command": "tasks-context-completed.markTaskIncomplete",
                 "title": "%command.markTaskIncomplete.title%",
+                "icon": {
+                    "light": "media/light/incomplete_check.svg",
+                    "dark": "media/dark/incomplete_x.svg"
+                },
                 "enablement": "workspaceFolderCount == 1"
             },
             {
@@ -146,7 +145,7 @@
             ],
             "view/title": [
                 {
-                    "command": "tasks-context-completed.reloadTasks",
+                    "command": "tasks-context.reloadTasks",
                     "when": "view == tasks-context-completed",
                     "group": "navigation"
                 },
@@ -200,11 +199,13 @@
                 },
                 {
                     "command": "tasks-context.markTaskComplete",
-                    "when": "view == tasks-context && viewItem =~ /task:[^:]*:incomplete/"
+                    "when": "view == tasks-context && viewItem =~ /task:[^:]*:incomplete/",
+                    "group": "inline"
                 },
                 {
-                    "command": "tasks-context.markTaskIncomplete",
-                    "when": "view == tasks-context && viewItem =~ /task:[^:]*:complete/"
+                    "command": "tasks-context-completed.markTaskIncomplete",
+                    "when": "view == tasks-context-completed && viewItem =~ /task:[^:]*:complete/",
+                    "group": "inline"
                 }
             ],
             "editor/title": [
@@ -239,7 +240,7 @@
                     "when": "false"
                 },
                 {
-                    "command": "tasks-context.markTaskIncomplete",
+                    "command": "tasks-context-completed.markTaskIncomplete",
                     "when": "false"
                 }
             ]

@@ -84,7 +84,7 @@ export class TasksProvider implements vscode.TreeDataProvider<vscode.TreeItem> {
 export class TasksProviderCompleted implements vscode.TreeDataProvider<vscode.TreeItem> {
 
     _onDidChangeTreeData: vscode.EventEmitter<vscode.TreeItem | undefined> = new vscode.EventEmitter<vscode.TreeItem | undefined>();
-    readonly onDidChagneTreeData: vscode.Event<vscode.TreeItem | undefined> = this._onDidChangeTreeData.event;
+    readonly onDidChangeTreeData: vscode.Event<vscode.TreeItem | undefined> = this._onDidChangeTreeData.event;
 
     private _sortBy: string = 'name';
     private _sortOrder = 1;
