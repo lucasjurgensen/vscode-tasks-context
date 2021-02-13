@@ -130,6 +130,13 @@ function initWorkspace(context: vscode.ExtensionContext, workspaceUri: vscode.Ur
     const sortTasksByCreationDate = vscode.commands.registerCommand('tasks-context.sortTasksByCreationDate', () => {
         tasksProvider.sortBy = 'creationDate';
     });
+    const sortTasksCompletedByName = vscode.commands.registerCommand('tasks-context-completed.sortTasksByName', () => {
+        tasksProviderCompleted.sortBy = 'name';
+    });
+
+    const sortTasksCompletedByCreationDate = vscode.commands.registerCommand('tasks-context-completed.sortTasksByCreationDate', () => {
+        tasksProviderCompleted.sortBy = 'creationDate';
+    });
 
     context.subscriptions.push(treeProvider);
     context.subscriptions.push(treeProviderCompleted);
@@ -147,6 +154,8 @@ function initWorkspace(context: vscode.ExtensionContext, workspaceUri: vscode.Ur
     context.subscriptions.push(markTaskIncomplete);
     context.subscriptions.push(sortTasksByName);
     context.subscriptions.push(sortTasksByCreationDate);
+    context.subscriptions.push(sortTasksCompletedByName);
+    context.subscriptions.push(sortTasksCompletedByCreationDate);
 }
 
 function initNoWorkspace(context: vscode.ExtensionContext) {

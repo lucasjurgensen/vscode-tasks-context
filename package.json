@@ -121,6 +121,16 @@
                 "command": "tasks-context.sortTasksByCreationDate",
                 "title": "%command.sortTasksByCreationDate.title%",
                 "enablement": "workspaceFolderCount == 1"
+            },
+            {
+                "command": "tasks-context-completed.sortTasksByName",
+                "title": "%command.sortTasksByName.title%",
+                "enablement": "workspaceFolderCount == 1"
+            },
+            {
+                "command": "tasks-context-completed.sortTasksByCreationDate",
+                "title": "%command.sortTasksByCreationDate.title%",
+                "enablement": "workspaceFolderCount == 1"
             }
         ],
         "views": {
@@ -166,6 +176,14 @@
                 {
                     "command": "tasks-context.sortTasksByCreationDate",
                     "when": "view == tasks-context"
+                },
+                {
+                    "command": "tasks-context-completed.sortTasksByName",
+                    "when": "view == tasks-context-completed"
+                },
+                {
+                    "command": "tasks-context-completed.sortTasksByCreationDate",
+                    "when": "view == tasks-context-completed"
                 }
             ],
             "view/item/context": [
