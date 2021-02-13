@@ -23,8 +23,8 @@ This extension contributes the following settings:
 
 * `tasks-context.autoAddFileToActiveTask`: Automatically add files to the active task (when opened or modified)
 * `tasks-context.showAddFileToActiveTaskInExplorerContext`: Whether to show 'Add file to active task' command in explorer context menu
-* `tasks-context.hideCompletedTasks`: Whether to hide completed tasks in the tasks list
 
-And of course, special thanks to [@MrDoomy](https://github.com/MrDoomy) for creating the logo!
+Special thanks to [@MrDoomy](https://github.com/MrDoomy) for creating the logo!
+Credit to [@jsaulou] (https://github.com/jsaulou) for making the original version of Tasks Context!
 
 **Enjoy!**

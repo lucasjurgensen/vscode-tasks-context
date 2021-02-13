@@ -14,12 +14,10 @@
     "command.markTaskIncomplete.title": "Mark as incomplete",
     "command.sortTasksByName.title": "Sort by name",
     "command.sortTasksByCreationDate.title": "Sort by creation date",
-    "command.hideCompletedTasks.title": "Hide completed tasks",
     "command.showCompletedTasks.title": "Show completed tasks",
     "property.autoAddFileToActiveTask.description": "Automatically add files to the active task",
     "property.autoAddFileToActiveTask.enum.never.description": "Never",
     "property.autoAddFileToActiveTask.enum.opened.description": "When a file is opened",
     "property.autoAddFileToActiveTask.enum.modified.description": "When a file is modified",
-    "property.showAddFileToActiveTaskInExplorerContext.description": "Whether to show 'Add file to active task' command in explorer context menu",
-    "property.hideCompletedTasks.description": "Whether to hide completed tasks in the tasks list"
+    "property.showAddFileToActiveTaskInExplorerContext.description": "Whether to show 'Add file to active task' command in explorer context menu"
 }
