@@ -7,7 +7,6 @@ import { messages } from './messages';
 export class TasksManager {
 
     private _activeTask?: Task;
-    private task_name_set = new Set();
 
     constructor(
         private tasksRepository: TasksRepository,
@@ -23,10 +22,8 @@ export class TasksManager {
     }
 
     createTask(taskName: string) {
-        if (this.task_name_set.has(taskName)) {
+        if (this.tasksRepository.getTaskByName(taskName)) {
             throw new Error("Task with this name already created");
-        } else {
-            this.task_name_set.add(taskName);
         }
         const task = new Task(taskName);
         this.tasksRepository.addTask(task);

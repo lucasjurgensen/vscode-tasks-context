@@ -98,8 +98,8 @@
                 "command": "tasks-context.markTaskComplete",
                 "title": "%command.markTaskComplete.title%",
                 "icon": {
-                    "light": "media/light/complete_check.svg",
-                    "dark": "media/dark/complete_check.svg"
+                    "light": "media/light/mark_complete.svg",
+                    "dark": "media/dark/mark_complete.svg"
                 },
                 "enablement": "workspaceFolderCount == 1"
             },
@@ -107,8 +107,8 @@
                 "command": "tasks-context-completed.markTaskIncomplete",
                 "title": "%command.markTaskIncomplete.title%",
                 "icon": {
-                    "light": "media/light/incomplete_check.svg",
-                    "dark": "media/dark/incomplete_x.svg"
+                    "light": "media/light/mark_incomplete.svg",
+                    "dark": "media/dark/mark_incomplete.svg"
                 },
                 "enablement": "workspaceFolderCount == 1"
             },
@@ -186,11 +186,11 @@
                 },
                 {
                     "command": "tasks-context.renameTask",
-                    "when": "view == tasks-context && viewItem =~ /task:.*/"
+                    "when": "view == tasks-context || view == tasks-context-completed && viewItem =~ /task:.*/"
                 },
                 {
                     "command": "tasks-context.deleteTask",
-                    "when": "view == tasks-context && viewItem =~ /task:.*/"
+                    "when": "view == tasks-context || view == tasks-context-completed && viewItem =~ /task:.*/"
                 },
                 {
                     "command": "tasks-context.removeTaskFile",
