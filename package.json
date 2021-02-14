@@ -40,6 +40,15 @@
                 "enablement": "workspaceFolderCount == 1"
             },
             {
+                "command": "tasks-context.searchForTask",
+                "title": "%command.searchForTask.title%",
+                "icon": {
+                    "light": "media/light/search.svg",
+                    "dark": "media/dark/search.svg"
+                },
+                "enablement": "workspaceFolderCount == 1"
+            },
+            {
                 "command": "tasks-context.openAllFiles",
                 "title": "%command.openAllFiles.title%",
                 "icon": {
@@ -166,6 +175,11 @@
                 },
                 {
                     "command": "tasks-context.newTask",
+                    "when": "view == tasks-context",
+                    "group": "navigation"
+                },
+                {
+                    "command": "tasks-context.searchForTask",
                     "when": "view == tasks-context",
                     "group": "navigation"
                 },

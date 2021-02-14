@@ -7,6 +7,7 @@
     "command.deleteTask.title": "Delete",
     "command.removeTaskFile.title": "Remove file",
     "command.addFileToActiveTask.title": "Add file to active task",
+    "command.searchForTask.title":"Search for a task",
     "command.activateTask.title": "Activate task",
     "command.deactivateTask.title": "Deactivate task",
     "command.renameTask.title": "Rename",

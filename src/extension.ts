@@ -66,6 +66,14 @@ function initWorkspace(context: vscode.ExtensionContext, workspaceUri: vscode.Ur
         });
     });
 
+    const searchForTask = vscode.commands.registerCommand('tasks-context.searchForTask', () => {
+        vscode.window.showInputBox({ placeHolder: messages.task_name }).then(taskName => {
+            if (taskName) {
+                tasksManager.searchAndActivateTask(taskName);
+            }
+        });
+    });
+
     const commandOpenAllFiles = vscode.commands.registerCommand('tasks-context.openAllFiles', (task: Task) => {
         tasksManager.openAllFiles(task);
     });
@@ -156,6 +164,7 @@ function initWorkspace(context: vscode.ExtensionContext, workspaceUri: vscode.Ur
     context.subscriptions.push(sortTasksByCreationDate);
     context.subscriptions.push(sortTasksCompletedByName);
     context.subscriptions.push(sortTasksCompletedByCreationDate);
+    context.subscriptions.push(searchForTask);
 }
 
 function initNoWorkspace(context: vscode.ExtensionContext) {

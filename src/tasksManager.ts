@@ -21,6 +21,25 @@ export class TasksManager {
         this.tasksProviderCompleted._onDidChangeTreeData.fire();
     }
 
+    searchAndActivateTask(taskName: string) {
+        if (this.tasksRepository.getTaskByName(taskName)) {
+            const task = this.tasksRepository.getTaskByName(taskName);
+            if (task) {
+                if (this._activeTask) {
+                    this._activeTask.active = false;
+                }
+                this._activeTask = task;
+                task.active = true;
+                task.complete = false;
+                this.tasksProvider._onDidChangeTreeData.fire();
+                this.tasksProviderCompleted._onDidChangeTreeData.fire();
+                this.tasksRepository.write();
+            }
+        } else {
+            throw new Error("Task with given name does not exist");
+        }
+    }
+
     createTask(taskName: string) {
         if (this.tasksRepository.getTaskByName(taskName)) {
             throw new Error("Task with this name already created");
